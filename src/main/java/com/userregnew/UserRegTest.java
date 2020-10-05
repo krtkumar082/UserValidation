@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class UserRegTest {
-	public static boolean checkFname(String fname) {
+	/*public static boolean checkFname(String fname) {
 			            Pattern p1 =Pattern.compile("^[A-Z]{1}[a-z]{2,}");
 			            Matcher m1 = p1.matcher(fname);
 			            boolean matchfound1 = m1.find();
@@ -32,14 +32,16 @@ public class UserRegTest {
         Matcher m5 = p5.matcher(passwd);
         boolean matchfound2 = m5.find();
         return matchfound2;
-	}
-public static void main(String[] args) {
+	}*/
+public static void main(String[] args) throws UserTestException{
 	System.out.println("Welcome to User Registration");
 	Scanner sc=new Scanner(System.in);
 	do {
+		
 	System.out.println("Enter first name (Starts with capital)");
     String fname = sc.nextLine();
-    if(checkFname(fname)) {
+    Ivalidator validatefirstname=n->n.matches("^[A-Z]{1}[a-z]{2,}");
+    if(validatefirstname.validate(fname)) {
     	break;
     }
     else {
@@ -50,7 +52,8 @@ public static void main(String[] args) {
 	do {
 		System.out.println("Enter last name (Starts with capital)");
 	    String lname = sc.nextLine();
-	    if(checkLname(lname)) {
+	    Ivalidator validatelastname=n->n.matches("^[A-Z]{1}[a-z]{2,}");
+	    if(validatelastname.validate(lname)) {
 	    	break;
 	    }
 	    else {
@@ -61,7 +64,8 @@ public static void main(String[] args) {
 	do {
 		System.out.println("Enter Valid Email");
 	    String email = sc.nextLine();
-	    if(checkEmail(email)) {
+	    Ivalidator validateEmail=n->n.matches("^[a-z]([.+_-]{0,1}[0-9a-z]+)?@[a-z0-9]+(\\.[a-z]{2,}){1,2}");
+	    if(validateEmail.validate(email)) {
 	    	break;
 	    }
 	    else {
@@ -72,7 +76,8 @@ public static void main(String[] args) {
 	do {
 		System.out.println("Enter Valid Phone Number");
 	    String number = sc.nextLine();
-	    if(checkPhoneNumber(number)) {
+	    Ivalidator validatephoneNumb=n->n.matches("^[1-9]{1}[0-9]{1} [1-9]{1}[0-9]{9}");
+	    if(validatephoneNumb.validate(number)) {
 	    	break;
 	    }
 	    else {
@@ -83,8 +88,9 @@ public static void main(String[] args) {
 	do {
 		System.out.println("Enter Valid Psswd");
 	    String passwd = sc.nextLine();
-	    if(checkPsswd(passwd)) {
-	    	System.out.println("Valid Input");
+	    Ivalidator validatepsswd=n->n.matches("(?=.*[@#$%])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,}");
+	    if(validatepsswd.validate(passwd)) {
+	    	System.out.println("Valid Input and Successful");
 	    	break;
 	    }
 	    else {
